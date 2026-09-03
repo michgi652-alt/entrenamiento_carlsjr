@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #ffffff; display: flex; justify-content: center; padding: 20px 10px; }
+        .app-container { width: 100%; max-width: 360px; display: flex; flex-direction: column; align-items: center; position: relative; }
+
+        /* Top Bar */
+        .top-bar-container { position: relative; width: 100%; margin-bottom: 20px; }
+        .top-bar { width: 100%; background-color: #f3edf7; border-radius: 28px; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .top-bar-title { font-size: 18px; font-weight: 600; color: #1d1b20; text-transform: uppercase; }
+        .icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; text-decoration: none; color: inherit; }
+
+        /* Dropdown Menu */
+        .dropdown-menu { display: none; position: absolute; top: 55px; left: 0; width: 160px; background-color: #f3edf7; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 8px 0; z-index: 100; }
+        .dropdown-menu.active { display: block; }
+        .dropdown-item { display: block; padding: 12px 20px; color: #1d1b20; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .dropdown-item:hover { background-color: #e6dded; }
+
+        /* Card Section */
+        .card { width: 100%; margin-bottom: 24px; }
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background-color: #000; display: flex; align-items: center; justify-content: center; }
+        .avatar img { width: 20px; height: 20px; }
+        .badge { background-color: #8b7fa8; color: #ffffff; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+        .star-badge { border: 2px solid #8b7fa8; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #8b7fa8; }
+
+        .card-media { width: 100%; height: 160px; background-color: #f1f3f5; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        .card-media img { max-height: 110px; object-fit: contain; }
+
+        .post-date { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+        .post-tag { font-size: 12px; color: #666; margin-bottom: 12px; }
+        .post-description { font-size: 13px; color: #222; margin-bottom: 16px; }
+
+        .actions { display: flex; justify-content: flex-end; width: 100%; }
+        .btn-entry { background-color: #e31837; color: #fff; border: none; border-radius: 20px; padding: 10px 28px; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+        .divider { border-bottom: 1px dashed #d0c4e8; margin: 10px 0 24px 0; width: 100%; }
+
+        /* Pop-up Overlay / Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); justify-content: center; align-items: center; z-index: 200; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background-color: #eeeaf4; border-radius: 20px; padding: 20px; width: 260px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .modal-card h3 { font-size: 18px; color: #1d1b20; margin-bottom: 8px; }
+        .modal-card p { font-size: 13px; color: #49454f; line-height: 1.3; margin-bottom: 20px; }
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 8px; }
+        .btn-modal-secondary { background-color: #e6dded; border: none; padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #65558f; cursor: pointer; }
+        .btn-modal-primary { background-color: #d0bcff; border: none; padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #381e72; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar-container">
+            <div class="top-bar">
+                <button class="icon-btn" id="menuToggle">☰</button>
+                <span class="top-bar-title">CURSOS</span>
+                <button class="icon-btn">👤</button>
+            </div>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="/inicio" class="dropdown-item">Inicio</a>
+                <a href="/cursos" class="dropdown-item">Cursos</a>
+                <a href="#" class="dropdown-item">Evaluaciones</a>
+                <a href="#" class="dropdown-item">Certificados</a>
+            </div>
+        </div>
+
+        <!-- Curso Feader -->
+        <div class="card">
+            <div class="card-header">
+                <div class="avatar"><img src="{{ url_for('static', filename='images/star.png') }}" alt="Star"></div>
+                <span class="badge">Feader</span>
+                <div class="star-badge">☆</div>
+            </div>
+            <div class="card-media"><img src="{{ url_for('static', filename='images/star.png') }}" alt="Feader"></div>
+            <div class="post-date">10/12/2026</div>
+            <div class="post-tag">Fecha límite</div>
+            <p class="post-description">Completa lo antes posible el curso</p>
+            <div class="actions">
+                <button class="btn-entry" onclick="openModal('Curso Iniciado', 'Termina el curso lo antes posible para seguir avanzando')">ENTRAR</button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Curso Fritos -->
+        <div class="card">
+            <div class="card-header">
+                <div class="avatar"><img src="{{ url_for('static', filename='images/star.png') }}" alt="Star"></div>
+                <span class="badge">Fritos</span>
+                <div class="star-badge">☆</div>
+            </div>
+            <div class="card-media"><img src="{{ url_for('static', filename='images/star.png') }}" alt="Fritos"></div>
+            <div class="post-date">10/12/2026</div>
+            <div class="post-tag">Fecha límite</div>
+            <p class="post-description">Completa lo antes posible el curso</p>
+            <div class="actions">
+                <button class="btn-entry" onclick="openModal('Curso terminado', 'Sigue avanzando para obtener tu certificado')">ENTRAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pop-up -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <h3 id="modalTitle">Curso Iniciado</h3>
+            <p id="modalBody">Termina el curso lo antes posible para seguir avanzando</p>
+            <div class="modal-buttons">
+                <button class="btn-modal-secondary" onclick="closeModal()">Volver</button>
+                <button class="btn-modal-primary" onclick="closeModal()">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => dropdownMenu.classList.remove('active'));
+
+        function openModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = text;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

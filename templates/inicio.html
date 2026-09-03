@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Juriquilla</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 20px 10px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Top Bar Wrapper */
+        .top-bar-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .top-bar {
+            width: 100%;
+            background-color: #f3edf7;
+            border-radius: 28px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-bar-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1d1b20;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Menú Desplegable */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 55px;
+            left: 0;
+            width: 160px;
+            background-color: #f3edf7;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #1d1b20;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background-color: #e6dded;
+        }
+
+        /* Feed Card */
+        .card {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .user-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .user-details p {
+            font-size: 12px;
+            color: #666666;
+        }
+
+        .card-media {
+            width: 100%;
+            height: 200px;
+            background-color: #f1f3f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .card-media img {
+            max-height: 140px;
+            object-fit: contain;
+        }
+
+        .card-body {
+            margin-bottom: 24px;
+        }
+
+        .post-date {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .post-tag {
+            font-size: 13px;
+            color: #444444;
+            margin-bottom: 16px;
+        }
+
+        .post-description {
+            font-size: 14px;
+            color: #222222;
+            line-height: 1.4;
+        }
+
+        /* Action Buttons */
+        .actions {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            padding: 10px 16px;
+        }
+
+        .btn-primary {
+            background-color: #e31837;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background-color: #ffcc00;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .star-icon {
+            background-color: #ffffff;
+            color: #ffcc00;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Barra superior con menú -->
+        <div class="top-bar-container">
+            <div class="top-bar">
+                <button class="icon-btn" id="menuToggle">☰</button>
+                <span class="top-bar-title">JURIQUILLA</span>
+                <a href="/perfil" class="icon-btn" style="text-decoration: none;">👤</a>
+            </div>
+
+            <!-- Opciones del menú -->
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="cursos" class="dropdown-item">Cursos</a>
+                <a href="#" class="dropdown-item">Evaluaciones</a>
+                <a href="#" class="dropdown-item">Certificados</a>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Contenido -->
+        <div class="card">
+            <div class="card-header">
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="{{ url_for('static', filename='images/star.png')}}" alt="Star">
+                    </div>
+                    <div class="user-details">
+                        <h4>Happy Star</h4>
+                        <p>Nueva Hamburguesa</p>
+                    </div>
+                </div>
+                <button class="icon-btn">⋮</button>
+            </div>
+
+            <div class="card-media">
+                <img src="{{ url_for('static', filename='images/star.png') }}" alt="Happy Star Promo">
+            </div>
+
+            <div class="card-body">
+                <div class="post-date">10/12/2026</div>
+                <div class="post-tag">Lanzamiento</div>
+                <p class="post-description">Ofrece la nueva "Happy Star" en combo grande</p>
+            </div>
+        </div>
+
+        <!-- Botones de navegación -->
+        <div class="actions">
+            <button class="btn-text">ANTERIOR</button>
+            <button class="btn-primary">SIGUIENTE</button>
+        </div>
+
+        <!-- Botón de Cerrar Sesión -->
+        <a href="/" class="logout-btn">
+            <span class="star-icon">★</span>
+            Cerrar sesión
+        </a>
+    </div>
+
+    <!-- Script para controlar la apertura y cierre del menú -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Cierra el menú al hacer clic en cualquier otra parte de la pantalla
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('active');
+        });
+    </script>
+
+</body>
+</html>
