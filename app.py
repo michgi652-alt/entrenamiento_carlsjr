@@ -22,5 +22,9 @@ def cursos():
 def perfil():
     return render_template('perfil.html')
 
+@app.route('/evaluaciones')
+def evaluaciones():
+    return render_template('evaluaciones.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

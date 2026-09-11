@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            max-width: 400px;
+            background: #f0ebf8;
+            border-radius: 25px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            font-weight: bold;
+            color: #333;
+        }
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            margin-top: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .card-header {
+            background: #f9f5ff;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .avatar {
+            width: 35px;
+            height: 35px;
+            background: #8e7cc3;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .card-media {
+            text-align: center;
+            padding: 20px;
+        }
+        .card-media img {
+            width: 140px;
+        }
+        .card-body {
+            background: #fdfbff;
+            padding: 20px;
+        }
+        .btn-entrars {
+            background: #4a3b75;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            float: right;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span>☰</span>
+        <span>EVALUACIONES</span>
+        <span>👤</span>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="avatar">A</div>
+            <div>
+                <strong>EVALUACIÓN</strong><br>
+                <small style="color: #666;">Certificación</small>
+            </div>
+        </div>
+        <div class="card-media">
+            <img src="{{ url_for('static', filename='images/star.png') }}" alt="Estrella">
+        </div>
+        <div class="card-body">
+            <h3>Examen de 45 días</h3>
+            <p style="color: #555;">Contesta todo el examen con un límite de 2:30h</p>
+            <button class="btn-entrars">ENTRAR</button>
+        </div>
+    </div>
+
+</body>
+</html>
